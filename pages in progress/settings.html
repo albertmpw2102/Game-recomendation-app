@@ -1,0 +1,291 @@
+<head>
+<title>Settings⚙️</title>
+</head>
+
+
+<style>
+/*home*/
+    #home {
+            text-align: center;
+            font-size: 60px;
+            color: black;
+    }
+
+    #homeClick {
+        pointer-events: auto;
+    float: right;
+    width: 180px;
+
+    }
+
+
+   #homeClick:hover {background-color: purple;
+        border-radius: 12px;
+    }
+    #homeClick:active {background-color: pink;}
+/*home*/
+
+/*navigation bar*/
+#nav {
+  pointer-events: auto;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #8f8f8f;
+  border-radius: 5px;
+  width: 6%;
+}
+
+.navIcons {border: 1px solid black;
+    height: 100px}
+
+.navigat {
+
+    text-align: center;
+
+    padding-bottom: 54px;
+    padding-top: 54px;
+    border-radius: 5px;
+
+}
+
+
+/*navigation bar*/
+
+#pageArea {
+pointer-events: none;
+position: fixed;
+top: 10;
+width: 99%;
+height: 98%;
+}
+
+#settArea {
+    margin-right:auto;
+    margin-left:auto;
+    margin-top: 80px;
+    border: 4px solid black;
+    border-radius: 80px;
+    width: 50%;
+    height: 620px;
+    background-color: #8f8f8f;
+
+
+
+}
+
+#optArea {
+    padding-left: 70px;
+    padding-top: 70px;
+    font-size: 18px;
+    font-family: arial;
+
+}
+
+#chosGam {
+    margin-top: 50px;
+}
+
+#fontSize {
+    width: 45px;
+}
+
+#title {
+    padding-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 250px;
+    text-align: center;
+    font-size: 40px;
+    font-family:arial;
+    font-weight:bold;
+
+
+}
+
+#selected{
+    border: 1px solid black;
+    height: 50px;
+    width: 100px;
+    border-radius: 9px;
+    background-color: white;
+
+}
+
+.theme{
+    height: 50px;
+    width: 100px;
+    display: none;
+    background: white;
+    border: 1px solid black;
+    border-radius: 9px;
+}
+
+#selected:hover + #themes .theme{
+    display: block;
+}
+
+#themes:hover .theme{
+    display: block;
+}
+
+.invbutton {
+    position:absolute;
+    height:50px;
+    width:100px;
+    background: transparent;
+    border: none;
+    font-size:0;
+    cursor: pointer;
+
+}
+
+
+
+
+
+
+</style>
+
+
+<script>
+//function fontChange() {
+
+  //  var fontInput = document.getElementById("fontSize").value;
+
+  //  fontInput = Math.floor(fontInput);
+
+  //  var fontelement = document.getElementById("");
+
+  //  var fontsize = window.getComputedStyle(fontelement, null).fontSize;
+
+  //   fontchange = fontInput - parseInt(fontsize, 10);
+
+  //  var fontInt = parseInt(fontsize, 10) + fontchange + "px";
+
+  //  var fontString = fontInt.toString();
+
+  //  fontelement.style.fontSize = fontString;
+
+
+    //make a seperate function for each element with font size to be changed (this function will be used in for loop)
+
+    //when databases are implemented = save "fontchange" to a database of user and use this value in other page. e.g (array of fontsizes on a page) + (fontChange that is taken from the database)
+
+//}
+
+
+function setAttributes(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+}
+
+
+function imageSet() {
+
+    var theme1 = "/course work/images/themes icons/1.jpeg";
+    var theme2 = "/course work/images/themes icons/2.jpeg";
+
+    const img = document.createElement("IMG");
+    const img2 = document.createElement("IMG");
+
+
+    var selected = document.getElementById("selected");
+    var Theme1 = document.getElementById("theme1");
+
+
+
+    setAttributes(img, {"src": theme1, "style": "display: block;", "height": "44px", "width": "94px", "style": "margin-left: 2px; margin-top:2px"});
+    setAttributes(img2, {"src": theme2, "style": "display: block;", "height": "44px", "width": "94px", "style": "margin-left: 2px; margin-top:2px"});
+
+    selected.appendChild(img);
+    Theme1.appendChild(img2);
+
+}
+
+function selecting() {
+
+    
+
+}
+
+</script>
+
+<body onload="imageSet()">
+
+
+
+    <div id=title name=text> SETTINGS </div>
+
+    <div id=settArea>
+
+        <div id=optArea name=text>
+
+            <label>Dark theme </label>
+            <input type=checkbox></input>
+            <br>
+            <button id=chosGam>Redo "your favourite games" test</button>
+
+            <br>
+            <br>
+            <br>
+
+            <label>Font-size:</label>
+            <input type=number id=fontSize min=15 max=30 value=25 onchange="fontChange()">
+
+            <br>
+            <br>
+
+            <label>Choose a theme: </label>
+
+            <div id=Dropdown>
+
+                <div id="selected"></div>
+
+                <div id="themes">
+
+
+                    <div class='theme' id="theme1"><button class="invbutton"></button></div>
+                    <div class='theme' id="theme2"><button class="invbutton"></button></div>
+                    <div class='theme' id="theme3"><button class="invbutton"></button></div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div id=pageArea>
+
+        <!--home-->
+        <a class=hom href="/course work/pages/home.html">
+            <div id=homeClick>
+                <div id=home>HOME <br> 🎮 </div>
+            </div>
+        </a>
+        <!--home-->
+
+        <!--navigation bar-->
+        <ul id=nav>
+            <li> <div class=navigat> <a href="/course work/pages/setting.html"> <img class=navIcons src="/course work/images/question.png"> <br> settings </a> </div> </li>
+            <li> <div class=navigat> <a href="/course work/pages/catalogue.html"> <img class=navIcons src="/course work/images/question.png"> <br> catalogue </a> </div> </li>
+            <li> <div class=navigat> <a href="/course work/pages/wishlist.html"> <img class=navIcons src="/course work/images/question.png"> <br> wishlist </a> </div> </li>
+            <li> <div class=navigat> <a href="/course work/pages/tech-support.html"> <img class=navIcons src="/course work/images/question.png"> <br> tech-support </a> </div> </li>
+        </ul>
+        <!--navigation bar-->
+
+    </div>
+
+
+
+
+
+
+
+</body>
+
