@@ -1,0 +1,145 @@
+<head>
+<title>Support💻</title>
+</head>
+
+<style>
+/*home*/
+    #home {
+            text-align: center;
+            font-size: 60px;
+            color: black;
+    }
+
+    #homeClick {
+        pointer-events: auto;
+    float: right;
+    width: 180px;
+
+    }
+
+
+    #homeClick:hover {background-color: purple;
+        border-radius: 12px;
+    }
+    #homeClick:active {background-color: pink;}
+/*home*/
+
+/*navigation bar*/
+#nav {
+    pointer-events: auto;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #8f8f8f;
+  border-radius: 5px;
+  width: 6%;
+}
+
+.navIcons {border: 1px solid black;
+    height: 100px}
+
+.navigat {
+
+    text-align: center;
+
+    padding-bottom: 54px;
+    padding-top: 54px;
+    border-radius: 5px;
+
+}
+/*navigation bar*/
+
+#pageArea {
+pointer-events: none;
+position: fixed;
+top: 10;
+width: 99%;
+height: 98%;
+}
+
+#report {
+margin: auto;
+width: 35%;
+padding-right: 100px;
+padding-left: 100px;
+padding-top: 60px;
+padding-bottom: 60px;
+border:solid 4px black;
+margin-top: 100px;
+
+color: white;
+
+pointer-events: auto;
+
+background-color: #8f8f8f;
+border-radius: 80px;
+}
+
+#labl, #sel {font-size: 24px;
+    font-family:arial;
+}
+
+#text {width: 650px;
+top: 400px;
+    font-size: 20px
+
+}
+
+#txt {resize: none;
+    font-size: 18px;
+}
+
+
+#divsub{margin:auto;
+    width: 50%;
+}
+
+</style>
+
+
+<body>
+<div id=pageArea>
+
+        <!--home-->
+        <a class=hom href="/course work/pages/home.html">
+            <div id=homeClick>
+                <div id=home>HOME <br> 🎮 </div>
+            </div>
+        </a>
+        <!--home-->
+
+        <!--navigation bar-->
+        <ul id=nav>
+        <li> <div class=navigat> <a href="/course work/pages/setting.html"> <img class=navIcons src="/course work/images/question.png"> <br> settings </a> </div> </li>
+        <li> <div class=navigat> <a href="/course work/pages/catalogue.html"> <img class=navIcons src="/course work/images/question.png"> <br> catalogue </a> </div> </li>
+        <li> <div class=navigat> <a href="/course work/pages/wishlist.html"> <img class=navIcons src="/course work/images/question.png"> <br> wishlist </a> </div> </li>
+        <li> <div class=navigat> <a href="/course work/pages/tech-support.html"> <img class=navIcons src="/course work/images/question.png"> <br> tech-support </a> </div> </li>
+        </ul>
+        <!--navigation bar-->
+
+</div>
+
+    <form id="report" method="post" action="#">
+        <label id="labl" for=reas>What is your concern?</label>
+        <select id="sel" name="reason" id="reas">
+            <option>Bug report</option>
+            <option>Suggestion</option>
+            <option>Inconvinience</option>
+            <option>Something isn't working as it should</option>
+        </select>
+        <br>
+        <br>
+        <textarea id="txt" rows="20" cols="63" id="text"></textarea>
+        <br>
+        <br>
+        <div id=divsub>
+        <input style="width: 100%" type=submit>
+        </div>
+
+
+
+    </form>
+
+
+
+</body>
