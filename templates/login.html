@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <title>
+            ChoseUrGame: Login Page
+        </title>
+
+        <style>
+        #title {color:blue; font-size:120px;}
+        #subtitle {color:purple; font-size:60px;}
+        #error {font-size:30px; font-family:Arial, sans-serif; font-weight:bold;}
+        </style>
+    </head>
+
+
+<script>
+    var usern = document.getElementById("usern").value;
+    var passw = document.getElementById("passw").value;
+
+    function rederror(){
+        document.getElementById("usern").style.outline = "2px solid red";
+        document.getElementById("passw").style.outline = "2px solid red";
+        document.getElementById("error").style.color = "red"
+    }
+
+    function errorPage(){
+        window.location.href='https://ide-48dbe9d406504bfd9f0b738709f08348-8080.cs50.ws/course%20work/error_page.html'
+    }
+
+    function checklogin(){
+        var usern = document.getElementById("usern").value;
+        var passw = document.getElementById("passw").value;
+
+        if (usern.length == 0 && passw.length == 0)
+        { rederror()
+          document.getElementById("error").innerHTML = "cannot be blank !!" }
+        else if (usern.length == 0 || passw.length == 0)
+        { rederror()
+          document.getElementById("error").innerHTML = "both need to be filled !!" }
+        else
+        { document.getElementById("login").submit(); }
+    }
+
+
+    function reset(){
+        document.getElementById("usern").value = "";
+        document.getElementById("passw").value = "";
+    }
+
+
+</script>
+
+
+
+
+
+
+
+    <body>
+        <p>
+            <center id=title>
+                ChooseUrGame 🎮
+            </center>
+        </p>
+        <h3>
+            <center id=subtitle>
+                website for an easy game search
+            </center>
+        </h3>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+    <h1>
+        <center>
+         Please log in:
+        </center>
+    </h1>
+
+    <center>
+    <p>
+        Email or username:
+    </p>
+    <form id="login"  method="post" action="/login" >
+        <input type='text' id=usern name=usern value='' size='30' />
+        <p>
+            Password:
+        </p>
+        <input type='password' id=pass name=pass value='' size='30' />
+        <br>
+        <br>
+        <button onclick=checklogin()>Enter</button>
+        <input type="reset">
+    </form>
+    </center>
+
+
+    <center>
+    <p id=error></p>
+    </center>
+
+    <center>
+    <p>
+        Don't have an account yet?
+    </p>
+    <a href="/course work/databases/templates/creating_account.html">
+       You can create it here.
+    </a>
+    </center>
+
+
+
+
+    </body>
+
+
+</html>
