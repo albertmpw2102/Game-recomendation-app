@@ -66,7 +66,7 @@ height: 98%;
 }
 
 #pageArea {
-    height: 99%;
+    height: 360px;
     width: 92.5%;
     margin-left:131px;
 
@@ -78,6 +78,8 @@ height: 98%;
 }
 
 
+
+
 </style>
 
 </head>
@@ -85,20 +87,25 @@ height: 98%;
 <body>
 
 
-<iframe id=recent src="/course work/pages/iFrame/recent.html" title="recent releases"></iframe>
+<iframe id=recent src="/static/iFrame/recent.html" title="recent releases"></iframe>
 
 <div id=pageArea>
 
-    <p id=WelcomeMessage>Welcome, er{{name}}</p>
+    <p id=WelcomeMessage>{{name}}</p>
+
+    {{tool|safe}}
 
 </div>
+
+
+
 
 
 
 <div id=navArea>
 
     <!--home-->
-    <a class=hom href="/course work/pages/home.html">
+    <a class=hom href="/home">
         <div id=homeClick>
             <div id=home>HOME <br> 🎮 </div>
         </div>
@@ -107,10 +114,10 @@ height: 98%;
 
     <!--navigation bar-->
     <ul id=nav>
-    <li> <div class=navigat> <a href="/course work/pages/setting.html"> <img class=navIcons src="/course work/images/question.png"> <br> settings </a> </div> </li>
-    <li> <div class=navigat> <a href="/course work/pages/catalogue.html"> <img class=navIcons src="/course work/images/question.png"> <br> catalogue </a> </div> </li>
-    <li> <div class=navigat> <a href="/course work/pages/wishlist.html"> <img class=navIcons src="/course work/images/question.png"> <br> wishlist </a> </div> </li>
-    <li> <div class=navigat> <a href="/course work/pages/tech-support.html"> <img class=navIcons src="/course work/images/question.png"> <br> tech-support </a> </div> </li>
+    <li> <div class=navigat> <a href="settings"> <img class=navIcons src="/static/images/question.png"> <br> settings </a> </div> </li>
+    <li> <div class=navigat> <a href="catalogue"> <img class=navIcons src="/static/images/question.png"> <br> catalogue </a> </div> </li>
+    <li> <div class=navigat> <a href="wishlist"> <img class=navIcons src="/static/images/question.png"> <br> wishlist </a> </div> </li>
+    <li> <div class=navigat> <a href="tech-support"> <img class=navIcons src="/static/images/question.png"> <br> tech-support </a> </div> </li>
     </ul>
     <!--navigation bar-->
 
