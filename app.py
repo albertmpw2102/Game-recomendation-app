@@ -1,16 +1,160 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, url_for, redirect
 app = Flask(__name__)
 import sqlite3
 
+app.secret_key = 'LOL_SECRET_KEY'
+
+#PAGES
+
 @app.route('/')
-def home():
+def login_page():
         return render_template('login.html')
 
 
-@app.route('/course work/databases/templates/creating_account.html')
+
+
+@app.route('/creating_account')
 def signupPage():
         return render_template('creating_account.html')
 
+
+
+
+@app.route('/signup', methods=['GET','POST'])
+def signup():
+
+        con = sqlite3.connect('userdata.db')
+        cur = con.cursor()
+        cur.execute("""INSERT INTO user (username, name, email, password)
+                        VALUES (?,?,?,?)""",
+                        (request.form['usern'],request.form['name'],request.form['mail'],request.form['pass']))
+        con.commit()
+        cur.execute("""
+                INSERT INTO settings (username, theme, fontsize)
+                VALUES (?,?,?)""", (request.form['usern'], '1', '25')
+
+                )
+        con.commit()
+        con.close()
+
+        session['user'] = request.form['usern']
+
+        return redirect(url_for('home'))
+
+
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""SELECT * FROM user WHERE username=? AND password=?""",
+                    (request.form['usern'],request.form['pass']))
+    match = len(cur.fetchall())
+    if match == 0:
+        return "Wrong username or password"
+    else:
+        session['user'] = request.form['usern']
+        return redirect(url_for('home'))
+
+
+
+
+@app.route('/home')
+def home():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    if session.get('user') == None:
+        return render_template('home.html', name="Welcome, guest")
+    else:
+        cur.execute("""SELECT name FROM user WHERE username=?""",
+                        (session['user'],))
+        name = cur.fetchall()
+        if session['user'] == 'albert_dev':
+            return render_template('home.html', tool="<a href=dev_board id=board>Dev board</a>",
+                                                name="Welcome, " + name[0][0])
+        else:
+            return render_template('home.html', name="Welcome, " + name[0][0])
+
+
+
+
+@app.route('/tech-support', methods=['GET', 'POST'])
+def tech_support():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""
+        SELECT * FROM messages WHERE username=?""",
+        (session['user'],))
+    match = len(cur.fetchall())
+    if match != 0:
+            return render_template('tech-support.html', match=1)
+
+    elif request.method == 'POST':
+        cur.execute("""
+
+        INSERT INTO messages (username, reason, text)
+        VALUES (?,?,?)""",
+        (session['user'], request.form['reason'], request.form['text']))
+        con.commit()
+        con.close()
+        return render_template('tech-support.html', message="thank you for the message")
+
+    else:
+        return render_template('tech-support.html')
+
+
+
+
+@app.route('/catalogue')
+def catalogue():
+    return render_template('catalogue.html')
+
+
+
+
+@app.route('/settings', methods=['POST','GET'])
+def settings():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""SELECT * FROM settings WHERE username=?""",
+    (session['user'],)
+    )
+    set = cur.fetchall()
+    return render_template('settings.html', fontsize=str(set[0][2]), theme=str(set[0][1]))
+
+
+@app.route('/settings/savetheme', methods=['GET'])
+def saveTheme():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    theme = request.args.get('theme', '')
+    cur.execute("""UPDATE settings
+                    SET theme=?
+                    WHERE username=?""", (theme, session['user']))
+    con.commit()
+    con.close()
+    return redirect(url_for('settings'))
+    #maybe would be more effiecient without the get method, for example ajax
+
+
+
+@app.route('/wishlist')
+def wishlist():
+    return render_template('wishlist.html')
+
+
+@app.route('/dev_board')
+def board():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""SELECT * FROM messages""")
+    set = cur.fetchall()
+    return render_template('dev_board_messages.html', messages=set)
+
+
+
+#CREATING TABLES
 @app.route('/create')
 def create():
     con = sqlite3.connect('userdata.db')
@@ -29,48 +173,45 @@ def create():
     return 'tbl created!'
 
 
-@app.route('/signup', methods=['POST'])
-def signup():
-
-        con = sqlite3.connect('userdata.db')
-        cur = con.cursor()
-        cur.execute("""INSERT INTO user (username, name, email, password)
-                        VALUES (?,?,?,?)""",
-                        (request.form['usern'],request.form['name'],request.form['mail'],request.form['pass']))
-        con.commit()
-        con.close()
-        return request.form['name'] + ' added'
-
-@app.route('/login', methods=['POST'])
-def login():
-    con = sqlite3.connect('userdata.db')
-    cur = con.cursor()
-    cur.execute("""SELECT * FROM user WHERE username=? AND password=?""",
-                    (request.form['usern'],request.form['pass']))
-    match = len(cur.fetchall())
-    if match == 0:
-        return "Wrong username or password"
-    else:
-        cur.execute("""SELECT name FROM user WHERE username=?""",
-                    (request.form['usern'],))
-        name = cur.fetchall()
-        name = str(name)
-        return render_template('home.html', name=name)
 
 
-@app.route('/delete')
-def delete():
+@app.route('/message-table-create')
+def message_table_create():
     con = sqlite3.connect('userdata.db')
     cur = con.cursor()
     cur.execute("""
-                DROP TABLE user;
+        CREATE TABLE messages (
+        username VARCHAR(15) NOT NULL PRIMARY KEY,
+        reason VARCHAR(20),
+        text VARCHAR(500)
+        )
         """)
-
     con.commit()
     con.close()
+    return 'message tbl created!'
 
-    return 'tbl deleted'
 
+
+
+@app.route('/settings-table-create')
+def settings_table_create():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""
+        CREATE TABLE settings
+        (
+        username VARCHAR(15) NOT NULL PRIMARY KEY,
+        theme INTEGER NOT NULL,
+        fontsize INTEGER
+        )
+        """)
+    con.commit()
+    con.close()
+    return 'settings tbl created!'
+
+
+
+#SEE FUNCTIONS
 @app.route('/see')
 def see():
     con = sqlite3.connect('userdata.db')
@@ -80,3 +221,84 @@ def see():
         """)
     rows = cur.fetchall()
     return str(rows)
+
+
+
+
+@app.route('/see-messages')
+def see_messages():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""
+                SELECT * FROM messages;
+        """)
+    rows = cur.fetchall()
+    return str(rows)
+
+
+
+
+@app.route('/see-settings')
+def see_settings():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""
+                SELECT * FROM settings;
+        """)
+    rows = cur.fetchall()
+    return str(rows)
+
+
+
+#CLEARING FUNCTIONS
+@app.route('/clear-messages')
+def clear_messages():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""
+                DELETE FROM messages;
+        """)
+    con.commit()
+    con.close()
+    return 'messages cleared'
+
+
+
+
+@app.route('/clear-usertable')
+def clear_message():
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""
+                DELETE FROM user;
+        """)
+    con.commit()
+    con.close()
+    return 'users cleared'
+
+
+@app.route('/clear-sessions')
+def clear_sessions():
+    session.clear()
+
+    return "cleared"
+
+@app.route('/clear-all')
+def clear_all():
+    session.clear()
+    con = sqlite3.connect('userdata.db')
+    cur = con.cursor()
+    cur.execute("""
+                DELETE FROM user;
+        """)
+    con.commit()
+    cur.execute("""
+                DELETE FROM messages;
+        """)
+    con.commit()
+    cur.execute("""
+                DELETE FROM settings;
+        """)
+    con.commit()
+    con.close()
+    return "all cleared"
