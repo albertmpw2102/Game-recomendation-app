@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>Your interests 📄</title>
+</head>
+
+<style>
+/*home*/
+    #home {
+            text-align: center;
+            font-size: 60px;
+            color: black;
+    }
+
+    #homeClick {
+        pointer-events: auto;
+    float: right;
+    width: 180px;
+
+    }
+
+
+    #homeClick:hover {background-color: purple;
+        border-radius: 12px;
+    }
+    #homeClick:active {background-color: pink;}
+/*home*/
+
+/*navigation bar*/
+#nav {
+    pointer-events: auto;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #8f8f8f;
+  border-radius: 5px;
+  width: 6%;
+}
+
+.navIcons {border: 1px solid black;
+    height: 100px}
+
+.navigat {
+
+    text-align: center;
+
+    padding-bottom: 54px;
+    padding-top: 54px;
+    border-radius: 5px;
+
+}
+
+
+#pageArea {
+pointer-events: none;
+position: fixed;
+top: 10;
+width: 99%;
+height: 98%;
+}
+
+/*navigation bar*/
+
+#panel {
+margin: auto;
+width: 82%;
+height: 300px;
+border: solid 4px black;
+margin-left: 130px;
+
+pointer-events: auto;
+background-color: #8f8f8f;
+border-radius: 20px;
+}
+
+h2 {
+margin-left: 15px;
+}
+
+#checkboxes {
+    width: 95%;
+    margin: auto;
+    list-style-type:none;
+    height: 200px;
+    column-count: 5;
+    font-size: 27px;
+}
+
+.genre {
+    height: 25px;
+    width: 25px;
+}
+
+</style>
+
+<body>
+
+    <div id=pageArea>
+
+        <!--home-->
+        <a class=hom href="home">
+            <div id=homeClick>
+                <div id=home>HOME <br> 🎮 </div>
+            </div>
+        </a>
+        <!--home-->
+
+        <!--navigation bar-->
+        <ul id=nav>
+            <li> <div class=navigat> <a href="settings"> <img class=navIcons src="/static/images/question.png"> <br> settings </a> </div> </li>
+            <li> <div class=navigat> <a href="catalogue"> <img class=navIcons src="/static/images/question.png"> <br> catalogue </a> </div> </li>
+            <li> <div class=navigat> <a href="wishlist"> <img class=navIcons src="/static/images/question.png"> <br> wishlist </a> </div> </li>
+            <li> <div class=navigat> <a href="tech-support"> <img class=navIcons src="/static/images/question.png"> <br> tech-support </a> </div> </li>
+        </ul>
+        <!--navigation bar-->
+
+    </div>
+
+
+<div id="panel">
+
+    <h2>Select your favourite genres:</h2>
+
+        <ul id="checkboxes">
+
+            {% for genre in genres %}
+
+                <li>
+                    <input type="checkbox" class="genre" value={{genre}} name={{genre}}>
+                    <label for={{genre}}>{{genre}}</label>
+                </li>
+
+
+            {% endfor %}
+
+
+        </ul>
+
+
+        <!--either try to use text files for dynamic storage of strings, or database but each will have same number of genres they are interested in-->
+
+        <!--if small time left then leave only checkboxes on this page, do not include the game search-->
+
+
+</div>
+
+
+
+
+</body>
+
+
+
+</html>
