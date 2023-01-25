@@ -1,30 +1,43 @@
 <head>
-<title>Wishlist📓</title>
+
+    <title>Wishlist📓</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
 </head>
 
 <script>
-function test(){
+function selection(){
 
     var boxes = document.getElementsByClassName('check');
 
     for(var i=0; boxes[i]; i++){
-      if(boxes[i].checked){
-          boxes[i].parentNode.style.opacity = "0.9";
+    if(boxes[i].checked){
+        boxes[i].parentNode.style.opacity = "0.9";
 
-      }
-     else {
-         boxes[i].parentNode.style.opacity = null;
-     }
+    }
+    else {
+        boxes[i].parentNode.style.opacity = null;
+    }
+    }
+
+}
+
+function test(){
+
+var boxes = document.getElementsByClassName('check');
+
+for(var i=0; boxes[i]; i++){
+if(boxes[i].checked){
+    boxes[i].parentNode.style.opacity = "0.9";
+
+}
+else {
+    boxes[i].parentNode.style.opacity = null;
+}
 }
 
 }
 
-
-function matchHeights(){
-
-
-
-}
 </script>
 
 <style>
@@ -50,45 +63,10 @@ function matchHeights(){
     #homeClick:active {background-color: pink;}
 /*home*/
 
-/*navigation bar*/
-#nav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: #8f8f8f;
-  border-radius: 5px;
-  width: 6%;
-  pointer-events: auto;
-}
 
-.navIcons {border: 1px solid black;
-    height: 100px}
 
-.navigat {
-    pointer-events: auto;
-    text-align: center;
-    padding-bottom: 54px;
-    padding-top: 54px;
-    border-radius: 5px;
 
-}
-/*navigation bar*/
 
-#pageArea {
-pointer-events: none;
-position: fixed;
-top: 10;
-width: 99%;
-height: 98%;
-}
-
-#gameArea {
-position:absolute;
-margin-left: 150px;
-margin-top: 0px;
-width: 1484px;
-height: 850px;
-}
 #save {
 
 pointer-events: auto;
@@ -102,39 +80,6 @@ height: 80px;
 }
 
 
-
-.game {
-    pointer-events: auto;
-    border: 2px solid black;
-    border-radius: 12px;
-    width: 160px;
-    height: 260px;
-       margin:9px;
-    display: inline-block;
-}
-
-.check {
-    float: right;
-    margin-top: 227px;
-    width:30px;
-    height:30px;
-
-}
-
-.ubought {
-    pointer-events: auto;
-    width: 160px;
-    height: 260px;
-    opacity: 0;
-}
-.ubought:hover {
-    opacity: 0.3;
-    transition: opacity 0.4s;
-}
-
-
-
-
 #title {
     position: absolute;
     left:785px;
@@ -143,17 +88,7 @@ height: 80px;
     font-family: arial;
     font-weight:bold;
 }
-#pagesArea{
-    margin-top:850px;
-    margin-left:auto;
-    margin-right:auto;
-    width: 20%;
-    pointer-events:auto;
-    text-align: center;
-    font-size:22px;
-    word-spacing:4px;
 
-}
 
 #searchArea{
     width:600px;
@@ -163,12 +98,6 @@ height: 80px;
     display:inline-block;
 }
 
-.pagebutton{
-    display:inline-block;
-    border: 1px solid black;
-    height: 2000px;
-    width: 24px;
-}
 
 
 
@@ -177,38 +106,37 @@ height: 80px;
 
 <body>
 
-    <div id=pageArea>
+    <div class=navArea>
 
-        <button id=save>SAVE</button>
+        <button id=save class="button">SAVE</button>
         <!--home-->
-            <a class=hom href="home">
-                <div id=homeClick>
-                    <div id=home>HOME <br> 🎮 </div>
-                </div>
-            </a>
+        <a href="/">
+            <div class="home_button">HOME <br> 🎮 </div>
+        </a>
         <!--home-->
 
         <!--navigation bar-->
-
-        <ul id=nav>
-            <li> <div class=navigat> <a href="settings"> <img class=navIcons src="/static/images/question.png"> <br> settings </a> </div> </li>
-            <li> <div class=navigat> <a href="catalogue"> <img class=navIcons src="/static/images/question.png"> <br> catalogue </a> </div> </li>
-            <li> <div class=navigat> <a href="wishlist"> <img class=navIcons src="/static/images/question.png"> <br> wishlist </a> </div> </li>
-            <li> <div class=navigat> <a href="tech-support"> <img class=navIcons src="/static/images/question.png"> <br> tech-support </a> </div> </li>
+        <ul id=nav class="common_box">
+            <li> <a href="settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+            <li> <a href="catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+            <li> <a href="wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+            <li> <a href="tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
         </ul>
         <!--navigation bar-->
 
 
-
     </div>
 
-        <div id=title> YOUR WISHLIST </div>
+        <div id=title class="pageName"> YOUR WISHLIST </div>
 
         <div id=searchArea></div>
 
-    <div id=gameArea>
+    <div class=gameArea>
 
-        <div class=game> <div class=ubought> <input class=check type=checkbox onclick="test()"> </div> </div>
+        <div class=game> <div class=cover> <input class=check type=checkbox onclick="selection()"> </div> </div>
+        <div class=game> <div class=cover> <input class=check type=checkbox onclick="selection()"> </div> </div>
+        <div class=game> <div class=cover> <input class=check type=checkbox onclick="selection()"> </div> </div>
+        <div class=game> <div class=cover> <input class=check type=checkbox onclick="selection()"> </div> </div>
 
 
     </div>

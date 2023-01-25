@@ -5,29 +5,35 @@
         Create an account!
     </title>
 
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
+
     <style>
-         #title {color:blue; font-size:120px;}
-        #subtitle {color:purple; font-size:60px;}
-        #pls {position: relative; left: 300px;
-            background-color: white;
+
+        #login_box {
+            width: 400px;
+            font-family: arial;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        #signup_form {
             width: 250px;
-            padding: 20px;
-            border: 5px solid purple;
-            border-radius: 30px; }
+            margin: auto;
+            padding: 10px;
+        }
 
 
 
-        #h {font-size: 22px;
-            font-weight: bold;}
+        #error {
+            height: 30px;
+            margin-bottom: 20px;
+            font-size: 18px;
 
+        }
 
-        body { background-image: url("/static/images/background.png");
-               background-size: cover;
-             }
+        .field {
+            margin-bottom: 20px;
 
-        #error {position: relative; left: 400px;
-            color: red;
-            font-size: 25px;
         }
 
 
@@ -42,66 +48,70 @@
 
             <script>
 
-        function rederror(){
-            document.getElementById("usern").style.outline = "2px solid red";
-            document.getElementById("name").style.outline = "2px solid red";
-            document.getElementById("mail").style.outline = "2px solid red";
-            document.getElementById("pass").style.outline = "2px solid red";
-            document.getElementById("conf").style.outline = "2px solid red";
-
-            document.getElementById("error").style.color = "red"
-            }
-
-        function errorPage(){
-            window.location.href='https://ide-48dbe9d406504bfd9f0b738709f08348-8080.cs50.ws/course%20work/error_page.html'
-            }
-
-        function resetpage(){
-            document.getElementById("usern").style.outline = "0px solid red";
-            document.getElementById("name").style.outline = "0px solid red";
-            document.getElementById("mail").style.outline = "0px solid red";
-            document.getElementById("pass").style.outline = "0px solid red";
-            document.getElementById("conf").style.outline = "0px solid red";
-
-            document.getElementById("error").innerHTML = "" }
+    const fields = document.getElementsByClassName("field")
 
 
-        function checkreg(){
 
-            var usern = document.getElementById("usern").value;
-            var passw = document.getElementById("pass").value;
-            var mail = document.getElementById("mail").value;
-            var name = document.getElementById("name").value;
-            var conf = document.getElementById("conf").value;
+    function rederror(){
+        for (const field of fields){
+            field.style = "outline: 2px solid red; box-shadow: 0px 0px 20px red;";
+        }
 
-        if (usern.length == 0 || passw.length == 0 || mail.length == 0 || name.length == 0 )
+        document.getElementById("error").style.color = "red"
+
+        }
+
+
+    function resetpage(){
+        for (const field of fields){
+            field.style = "outline: 0px solid red; ";
+        }
+
+        document.getElementById("error").innerHTML = ""
+
+        }
+
+
+
+
+
+    function checkreg(){
+
+        const usern = document.getElementById("usern")
+        const passw = document.getElementById("pass")
+        const mail = document.getElementById("mail")
+        const name = document.getElementById("name")
+        const conf = document.getElementById("conf")
+        const error = document.getElementById("error")
+
+
+        if (usern.value.length == 0 || passw.value.length == 0 || mail.value.length == 0 || name.value.length == 0 )
         { rederror()
-          document.getElementById("error").innerHTML = "cannot be blank !!" }
+            error.innerHTML = "Cannot be blank" }
 
-
-        else if (mail.indexOf("@") < 1)
+        else if (mail.value.indexOf("@") < 1)
         { resetpage()
-            document.getElementById("mail").style.outline = "2px solid red";
-          document.getElementById("error").innerHTML = "please enter a proper email !!"}
+            mail.style = "outline: 2px solid red; box-shadow: 0px 0px 10px red;";
+            error.innerHTML = "Please enter a proper email"}
 
-        else if (mail.includes(".") == false)
+        else if (mail.value.includes(".") == false)
         { resetpage()
-        document.getElementById("mail").style.outline = "2px solid red";
-          document.getElementById("error").innerHTML = "please enter a proper email !!"}
+            mail.style = "outline: 2px solid red; box-shadow: 0px 0px 10px red;";
+            error.innerHTML = "Please enter a proper email"}
 
-        else if (conf != passw)
+        else if (conf.value != passw.value)
         {
             resetpage()
-            document.getElementById("pass").style.outline = "2px solid red";
-            document.getElementById("conf").style.outline = "2px solid red";
-            document.getElementById("error").innerHTML = "passwords don't match !!"
+            passw.style.outline = "2px solid red";
+            conf.style.outline = "2px solid red";
+            error.innerHTML = "Passwords don't match"
 
         }
 
         else
-        { document.getElementById("signup").submit(); }
-//using .submit function in if statement, so the function checks everything and only then submits
-        }
+        { document.getElementById("signup_form").submit(); }
+    //using .submit function in if statement, so the function checks everything and only then submits
+    }
 
 
 
@@ -118,74 +128,67 @@
 
     <body>
 
-        <p>
-            <center id=title>
-                ChooseUrGame 🎮
-            </center>
-        </p>
-        <h3>
-            <center id=subtitle>
-                website for an easy game search
-            </center>
-        </h3>
-
-        <br>
-        <br>
-        <br>
-        <br>
-
-
-        <div id=pls>
-
-            <p id=h>
-
-             Please enter your details:
-
-            </p>
-
-
-        <form id=signup method="post" action="/signup">
-            <p>
-                Username:
-            <br>
-                <input type='text' id=usern name=usern value='' size='30' />
-            </p>
+        <div class="common_box" id="title_box">
 
             <p>
-                Your name:
-            <br>
-                <input type='text' id=name name=name value='' size='30' />
+                <center id=title_text>
+                    Choose Ur Game 🎮
+                </center>
             </p>
 
-            <p>
-                Your email:
-            <br>
-                <input type='text' id=mail name=mail value='' size='30' />
-            </p>
+            <h3>
+                <center id=subtitle_text>
+                    website for an easy game search
+                </center>
+            </h3>
 
-            <p>
-                Your password:
-            <br>
-                <input type='password' id=pass name=pass value='' size='30' />
-            <br>
-                Confirm password:
-            <br>
-                <input type='password' id=conf name=conf value='' size='30' />
-            </p>
-            <br>
+        </div>
 
-                <button onclick=checkreg()>Submit</button>
-                <button type="reset">Reset</button>
-        </form>
+
+        <div id=login_box class="common_box">
+
+
+
+                <p style="font-size: 25px; font-weight: bold; text-align: center;">
+
+                Please enter your details:
+
+                </p>
+
+
+                <form id=signup_form method="post" action="/signning_up">
+
+                        Username: <br>
+                        <input type='text' class="field" id=usern name=usern value='' size='30' />
+                        <br>
+
+                        Your name: <br>
+                        <input type='text' class="field"  id=name name=name value='' size='30' />
+                        <br>
+
+                        Your email: <br>
+                        <input type='text' class="field" id=mail name=mail value='' size='30' />
+                        <br>
+
+                        Your password: <br>
+                        <input type='password' class="field" id=pass name=pass value='' size='30' />
+                        <br>
+
+                        Confirm password: <br>
+                        <input type='password' class="field" id=conf name=conf value='' size='30' />
+
+                        <div id="error"></div>
+
+                        <input type="button" style="padding: 15px 32px;" class="button_inAbox" onclick="checkreg()" value="Submit">
+                        <button type="reset" style="padding: 15px 32px;" class="button_inAbox" onclick="resetpage()">Reset</button>
+                </form>
 
 
 
 
         </div>
 
-        <p id=error>
 
-        </p>
 
 
 

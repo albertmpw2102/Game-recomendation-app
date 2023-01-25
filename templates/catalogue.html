@@ -1,62 +1,10 @@
 <head>
-<title>Catalogue</title>
+    <title>Catalogue</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
 </head>
 
 <style>
-/*home*/
-    #home {
-            text-align: center;
-            font-size: 60px;
-            color: black;
-    }
 
-    #homeClick {
-        pointer-events: auto;
-    float: right;
-    width: 180px;
-
-    }
-
-
-    #homeClick:hover {background-color: purple;
-        border-radius: 12px;
-    }
-    #homeClick:active {background-color: pink;}
-/*home*/
-
-/*navigation bar*/
-#nav {
-    pointer-events: auto;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: #8f8f8f;
-  border-radius: 5px;
-  width: 6%;
-}
-
-.navIcons {border: 1px solid black;
-    height: 100px}
-
-.navigat {
-
-    text-align: center;
-
-    padding-bottom: 54px;
-    padding-top: 54px;
-    border-radius: 5px;
-
-}
-
-
-/*navigation bar*/
-#pageArea {
-pointer-events: none;
-position: fixed;
-top: 10;
-width: 99%;
-height: 98%;
-}
 
 #searchArea{
     width:600px;
@@ -81,6 +29,8 @@ display:inline-block;
     height: 48px;
     width: 50px;
     display:inline-block;
+    margin-left: 10px;
+    border-radius:2px;
 
 }
 
@@ -93,35 +43,10 @@ display:inline-block;
     font-weight:bold;
 }
 
-#gameArea {position:absolute;
-margin-left: 150px;
-margin-top: 0px;
-width: 1484px;
-height: 850px;
 
-}
 
-.game {
-    pointer-events: auto;
-    border: 2px solid black;
-    width: 160px;
-    height: 260px;
-       margin:9px;
-    display: inline-block;
-    border-radius: 12px;
-}
 
-#pagesArea{
-    margin-top:850px;
-    margin-left:auto;
-    margin-right:auto;
-    width: 30%;
-    pointer-events:auto;
-    text-align: center;
-    font-size:22px;
-    word-spacing:4px;
 
-}
 </style>
 
 <script>
@@ -133,43 +58,47 @@ height: 850px;
 
 <body>
 
-<div id=pageArea>
+<div class=navArea>
 
 <!--home-->
-<a class=hom href="home">
-    <div id=homeClick>
-        <div id=home>HOME <br> 🎮 </div>
-    </div>
+<a href="/">
+    <div class="home_button">HOME <br> 🎮 </div>
 </a>
 <!--home-->
 
 <!--navigation bar-->
-<ul id=nav>
-<li> <div class=navigat> <a href="settings"> <img class=navIcons src="/static/images/question.png"> <br> settings </a> </div> </li>
-<li> <div class=navigat> <a href="catalogue"> <img class=navIcons src="/static/images/question.png"> <br> catalogue </a> </div> </li>
-<li> <div class=navigat> <a href="wishlist"> <img class=navIcons src="/static/images/question.png"> <br> wishlist </a> </div> </li>
-<li> <div class=navigat> <a href="tech-support"> <img class=navIcons src="/static/images/question.png"> <br> tech-support </a> </div> </li>
+<ul id=nav class="common_box">
+    <li> <a href="/settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+    <li> <a href="/catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+    <li> <a href="/wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+    <li> <a href="/tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
 </ul>
 <!--navigation bar-->
 
 </div>
 
-<div id=title>CATALOGUE</div>
+<div id=title class="pageName">CATALOGUE</div>
     <div id=searchArea>
-         <input id=search type=text placeholder="Enter your game's title for the search">
-            <a href=""> <div id=button> </div> </a>
+        <form method="get" action="/catalogue/search">
+         <input id=search name="name" style="border-color: #7300d1; border-radius:2px;" class="interactive_box" type=text placeholder="Enter your game's title for the search">
+            <button type="submit" id=button class="button"> <img src="/static/images/search.png" width="30px" height="30px" > </button>
+        </form>
     </div>
 
 
-    <div id=gameArea>
+    <div class=gameArea style="margin-top: 5px;">
 
 
-        <div class=game> </div>
+        {% for game in games %}
 
+            <a href="/game?index={{loop.index0}}" style="text-decoration:none;"> <div class=game> <img class="cover_image" src="{{game.image}}"> <div class="game_name"> {{game.title}} </div> </div> </a>
+
+        {% endfor %}
 
 
 
     </div>
+
 
 
 

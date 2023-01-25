@@ -1,132 +1,127 @@
 <html>
 <head>
-<title>Your interests 📄</title>
+    <title>Your interests 📄</title>
+    <link rel="stylesheet" href="/static/cssFiles/default_theme.css">
 </head>
 
 <style>
-/*home*/
-    #home {
-            text-align: center;
-            font-size: 60px;
-            color: black;
-    }
-
-    #homeClick {
-        pointer-events: auto;
-    float: right;
-    width: 180px;
-
-    }
 
 
-    #homeClick:hover {background-color: purple;
-        border-radius: 12px;
-    }
-    #homeClick:active {background-color: pink;}
-/*home*/
-
-/*navigation bar*/
-#nav {
-    pointer-events: auto;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: #8f8f8f;
-  border-radius: 5px;
-  width: 6%;
-}
-
-.navIcons {border: 1px solid black;
-    height: 100px}
-
-.navigat {
-
-    text-align: center;
-
-    padding-bottom: 54px;
-    padding-top: 54px;
-    border-radius: 5px;
-
-}
 
 
-#pageArea {
-pointer-events: none;
-position: fixed;
-top: 10;
-width: 99%;
-height: 98%;
-}
 
-/*navigation bar*/
+#panel_genres {
 
-#panel {
-margin: auto;
-width: 82%;
-height: 300px;
+width: 78%;
+
 border: solid 4px black;
-margin-left: 130px;
+margin-left: 164px;
 
 pointer-events: auto;
-background-color: #8f8f8f;
 border-radius: 20px;
 }
+
+#panel_tags {
+
+width: 78%;
+height: 500px;
+border: solid 4px black;
+margin-left: 164px;
+margin-top: 30px;
+
+pointer-events: auto;
+border-radius: 20px;
+}
+
 
 h2 {
 margin-left: 15px;
 }
 
-#checkboxes {
+#checkboxes_genres {
     width: 95%;
     margin: auto;
+    padding-top: 24px;
     list-style-type:none;
-    height: 200px;
+    height: 180px;
     column-count: 5;
-    font-size: 27px;
+    column-gap: 10px;
+    font-size: 25px;
 }
 
-.genre {
+#checkboxes_tags {
+    width: 90%;
+    padding-top: 18px;
+    margin: auto;
+    height: 400px;
+    list-style-type:none;
+    column-count: 4;
+    column-gap: 5px;
+    font-size: 25px;
+
+
+}
+
+.checkbox_genre {
     height: 25px;
     width: 25px;
+}
+
+.checkbox_tag {
+    height: 25px;
+    width: 25px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+
+
+
+#submit_button {
+    display: block;
+    width:30%;
+    height:60px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+
 }
 
 </style>
 
 <body>
 
-    <div id=pageArea>
+    <div class=navArea>
 
         <!--home-->
-        <a class=hom href="home">
-            <div id=homeClick>
-                <div id=home>HOME <br> 🎮 </div>
-            </div>
-        </a>
+            <a href="/">
+                <div class="home_button">HOME <br> 🎮 </div>
+            </a>
         <!--home-->
 
         <!--navigation bar-->
-        <ul id=nav>
-            <li> <div class=navigat> <a href="settings"> <img class=navIcons src="/static/images/question.png"> <br> settings </a> </div> </li>
-            <li> <div class=navigat> <a href="catalogue"> <img class=navIcons src="/static/images/question.png"> <br> catalogue </a> </div> </li>
-            <li> <div class=navigat> <a href="wishlist"> <img class=navIcons src="/static/images/question.png"> <br> wishlist </a> </div> </li>
-            <li> <div class=navigat> <a href="tech-support"> <img class=navIcons src="/static/images/question.png"> <br> tech-support </a> </div> </li>
+        <ul id=nav class="common_box">
+            <li> <a href="/settings" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/settings icon.png"> <br><br> SETTINGS </div> </a> </li>
+            <li> <a href="/catalogue" style="text-decoration: none;"> <div class=navigat>  <img class=navIcons src="/static/images/catalogue icon.png"> <br><br> CATALOGUE </div> </a> </li>
+            <li> <a href="/wishlist" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/wishlist icon.png"> <br><br> WISH LIST </div> </a> </li>
+            <li> <a href="/tech-support" style="text-decoration: none;"> <div class=navigat> <img class=navIcons src="/static/images/tech-support icon.png"> <br><br> TECH-SUPPORT </div> </a> </li>
         </ul>
         <!--navigation bar-->
 
     </div>
 
-
-<div id="panel">
+<form id="post_genres" method="post" action="/save_genres">
+<div id="panel_genres" class="common_box">
 
     <h2>Select your favourite genres:</h2>
 
-        <ul id="checkboxes">
+        <ul id="checkboxes_genres">
 
             {% for genre in genres %}
 
                 <li>
-                    <input type="checkbox" class="genre" value={{genre}} name={{genre}}>
-                    <label for={{genre}}>{{genre}}</label>
+                    <input type="checkbox" class="checkbox_genre" value="{{genre}}" name=genre id="{{genre}}">
+                    <label for="{{genre}}">{{genre}}</label>
                 </li>
 
 
@@ -145,6 +140,39 @@ margin-left: 15px;
 
 
 
+
+
+
+<div id="panel_tags" class="common_box">
+
+    <h2>Select your favourite tags:</h2>
+
+
+            <ul id="checkboxes_tags">
+
+                {% for tag in tags %}
+
+                    <li>
+                        <input type="checkbox" class="checkbox_tag" value="{{tag}}" name=tag>
+                        <label for="{{tag}}">{{tag}}</label>
+                    </li>
+
+
+                {% endfor %}
+
+
+            </ul>
+
+
+
+
+</div>
+
+<button type="submit" id="submit_button" class="button">
+    Submit
+</button>
+
+</form>
 
 </body>
 
