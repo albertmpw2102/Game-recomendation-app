@@ -199,20 +199,22 @@ def tech_support():
         con = sqlite3.connect('userdata.db')
         cur = con.cursor()
         cur.execute("""
-            SELECT * FROM messages WHERE username=?""",
-            (session['user'],))
+             SELECT * FROM messages WHERE username=?""",
+              (session['user'],))
         match = len(cur.fetchall())
         if match != 0:
-                return render_template('tech-support.html', match=1)
+            return render_template('tech-support.html', match=1)
 
         elif request.method == 'POST':
             cur.execute("""INSERT INTO messages (username, reason, text)
-                            VALUES (?,?,?)""",
-                            (session['user'], request.form['reason'], request.form['text']))
+                              VALUES (?,?,?)""",
+                              (session['user'], request.form['reason'], request.form['text']))
             con.commit()
             con.close()
 
             return render_template('tech-support.html', match=1)
+        else:
+            return render_template('tech-support.html', match=0)
 
     else:
 
